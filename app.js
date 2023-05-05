@@ -40,7 +40,8 @@ const readAndSave = async () => {
                 const newQuestion = new Question(question);
                 await newQuestion.save();
                 console.log('Question saved!')
-    }};
+    }
+};
     return console.log('Saving finished!')
 };
-readAndSave();
+// readAndSave();
