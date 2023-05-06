@@ -22,7 +22,8 @@ const readAndSave = async () => {
             question: questionObj.question,
             answers,
             correctAnswer: questionObj.correctAnswer,
-            difficultyLevel: questionObj.difficultyLevel
+            difficultyLevel: questionObj.difficultyLevel,
+            index: questionObj.index
         };
         modifiedQuestionArr.push(modifiedObj);
     })
@@ -44,4 +45,4 @@ const readAndSave = async () => {
 };
     return console.log('Saving finished!')
 };
-// readAndSave();
+readAndSave();
