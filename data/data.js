@@ -5,7 +5,7 @@ const questionsSchema = new mongoose.Schema({
     answers: [String],
     correctAnswer: String,
     difficultyLevel: String,
-    index: Number
+    index: String
 });
 const Question = mongoose.model('Question', questionsSchema);
 module.exports = Question;

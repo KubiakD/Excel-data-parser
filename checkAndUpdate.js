@@ -23,18 +23,15 @@ const checkAndUpdate = async () => {
         answers,
         correctAnswer: questionObj.correctAnswer,
         difficultyLevel: questionObj.difficultyLevel,
+        index: questionObj.index
       };
       modifiedQuestionArr.push(modifiedObj);
     });
     const existingQuestions = await Question.find({},{'_id':0, '__v':0}).lean();
-    // const questionsForUpdate = modifiedQuestionArr.filter((question) => {
-    //   const existingQuestion = existingQuestions.find(q=>question.correctAnswer === q.correctAnswer);
-    //   return JSON.stringify(existingQuestion) !== JSON.stringify(question);
-    // });
     let questionsForUpdate = [];
     let questionsForDeleting = [];
     for (const question of modifiedQuestionArr){
-      const dbCounterpart = existingQuestions.find(q=>question.correctAnswer === q.correctAnswer);
+      const dbCounterpart = existingQuestions.find(q=>question.index === q.index);
       if(JSON.stringify(dbCounterpart)!== JSON.stringify(question)) {
         questionsForUpdate.push(question);
       } else if (!dbCounterpart || dbCounterpart.length === 0) {
@@ -44,7 +41,7 @@ const checkAndUpdate = async () => {
       };
     }
     for (const question of questionsForUpdate) {
-        await Question.updateOne({correctAnswer: question.correctAnswer}, {$set: {...question}});
+        await Question.updateOne({index: question.index}, {$set: {...question}});
         console.log(`Question ${question.question} updated!`)
     };
   };
